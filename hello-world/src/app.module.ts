@@ -30,6 +30,7 @@ import Reservation from './reservation/reservation.entity';
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1h' },
+      global: true,
     }),
     MoviesModule,
     ReservationModule,

@@ -1,9 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, Post, ValidationPipe, Param, UseGuards, Request } from '@nestjs/common';
 import { ReservationDto } from './dto/ReservationDto.dto';
 import { ReservationService } from './reservation.service';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiNotAcceptableResponse, ApiNotFoundResponse, ApiResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/jwt/jwt-auth.guard';
+import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
 
 @Controller('reservation')
 export class ReservationController {
