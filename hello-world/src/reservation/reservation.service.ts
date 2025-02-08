@@ -13,11 +13,11 @@ export class ReservationService {
         private reservationRepository: Repository<Reservation>,
     ){}
     
-    async createReservation(reservationDto: ReservationDto): Promise<any> {
+    async createReservation(reservationDto: ReservationDto, userId): Promise<any> {
 
-        const { idUser, idMovie, reservationStart } = reservationDto;
+        const { idMovie, reservationStart } = reservationDto;
 
-        const allReservations = await this.reservationRepository.findBy({idUser});
+        const allReservations = await this.reservationRepository.findBy({ idUser: userId });
         
         const date = new Date(reservationStart);
 
@@ -26,15 +26,9 @@ export class ReservationService {
         if( allReservations.length !== 0){
             for (let i = 0; i < allReservations.length; i++) {
 
-                console.log(allReservations.length)
-
-                console.log(allReservations)
-
                 if(date < allReservations[i].reservationStart) {
                     throw new NotAcceptableException("Reservation impossible")
                 }
-
-                console.log(date)
     
     
                 if (allReservations[i].reservationStart.getTime() == date.getTime() || date < allReservations[i].reservationEnd) {
@@ -45,7 +39,7 @@ export class ReservationService {
 
 
         const res = this.reservationRepository.create({
-            idUser,
+            idUser: userId,
             idMovie,
             reservationStart,
             reservationEnd: reservationEnd

@@ -37,8 +37,6 @@ export class MoviesService {
                 throw new BadRequestException('Error fetching movies');
             }
 
-            console.log(movies)
-
             const moviesJson = await movies.json();
 
             if(page !== null && moviesJson.total_pages < page) {

@@ -7,15 +7,6 @@ import { IsDateString, IsNumber } from 'class-validator';
 export class ReservationDto {
 
     @ApiProperty({
-        description: 'ID of the user',
-        type: Number,
-        required: true,
-        example: 9
-    })
-    @IsNumber()
-    idUser: number;
-
-    @ApiProperty({
         description: 'ID of the movie',
         type: Number,
         required: true,

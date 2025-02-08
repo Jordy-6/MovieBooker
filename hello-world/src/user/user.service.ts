@@ -55,7 +55,6 @@ export class UserService {
         }
 
         const token = this.jwtService.sign({id: user.id});
-        console.log(token);
         return { token };
     }
 }

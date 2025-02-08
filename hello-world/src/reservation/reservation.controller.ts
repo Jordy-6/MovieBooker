@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Post, ValidationPipe, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, ValidationPipe, Param, UseGuards, Request } from '@nestjs/common';
 import { ReservationDto } from './dto/ReservationDto.dto';
 import { ReservationService } from './reservation.service';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiNotAcceptableResponse, ApiNotFoundResponse, ApiResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
@@ -17,8 +17,8 @@ export class ReservationController {
     @ApiResponse({status: 201, description: 'Reservation created'})
     @ApiUnauthorizedResponse({description: 'Unauthorized'})
     @Post()
-    create(@Body(new ValidationPipe()) reservationDto: ReservationDto){
-        return this.reservationService.createReservation(reservationDto)
+    create(@Body(new ValidationPipe()) reservationDto: ReservationDto, @Request() req){
+        return this.reservationService.createReservation(reservationDto, req.user.userId)
     }
 
     @ApiBearerAuth()
@@ -48,9 +48,9 @@ export class ReservationController {
             }
         }
     })
-    @Get(':idUser')
-    getAllUserReservations(@Param('idUser') idUser: number){
-        return this.reservationService.getAllUserReservations(idUser)
+    @Get()
+    getAllUserReservations(@Request() req){
+        return this.reservationService.getAllUserReservations(req.user.userId)
     }
 
     @ApiBearerAuth()

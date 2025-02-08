@@ -5,12 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
-  console.log(new Date(3600000 * (1 + Math.round(Date.now() / 3600000))))
-  console.log(new Date())
-
-
+  const app = await NestFactory.create(AppModule, { cors: true});
  
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
