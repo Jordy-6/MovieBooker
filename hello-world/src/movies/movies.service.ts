@@ -55,4 +55,31 @@ export class MoviesService {
         }
      
     }
+
+    async getMovieById(id: number): Promise<any> {
+
+        try {
+            const movie = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.TMDB_API_KEY}`
+                }});
+    
+            if(movie.statusText !== 'OK') {
+                throw new BadRequestException(`Error fetching movie with id ${id}`);
+            }
+
+            if(!movie) {
+                throw new NotFoundException(`Movie with id ${id} not found`)
+            }
+    
+            const movieJson = await movie.json();
+
+            return movieJson
+        } catch (error) {
+            console.error(error)
+        }
+       
+    }
 }

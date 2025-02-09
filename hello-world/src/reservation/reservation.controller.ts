@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, Post, ValidationPipe, Param, UseGuards, Request } from '@nestjs/common';
 import { ReservationDto } from './dto/ReservationDto.dto';
 import { ReservationService } from './reservation.service';

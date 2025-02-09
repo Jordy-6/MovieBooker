@@ -26,13 +26,11 @@ export class ReservationService {
         if( allReservations.length !== 0){
             for (let i = 0; i < allReservations.length; i++) {
 
-                if(date < allReservations[i].reservationStart) {
-                    throw new NotAcceptableException("Reservation impossible")
-                }
-    
-    
-                if (allReservations[i].reservationStart.getTime() == date.getTime() || date < allReservations[i].reservationEnd) {
-                    throw new NotAcceptableException("Reservation already booked" )
+                if(reservationStart >= allReservations[i].reservationStart && reservationStart <= allReservations[i].reservationEnd 
+                    || reservationEnd >= allReservations[i].reservationStart && reservationEnd <= allReservations[i].reservationEnd
+                    || reservationStart <= allReservations[i].reservationStart && reservationEnd >= allReservations[i].reservationEnd
+                ){
+                    throw new NotAcceptableException("Reservation impossible or Reservation already booked")
                 }
             }
         }

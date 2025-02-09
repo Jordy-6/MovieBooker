@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { ApiResponse, ApiQuery, ApiBadRequestResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 
@@ -17,5 +17,14 @@ export class MoviesController {
     async getAllMovies(@Query('search') search: string | null, @Query('page') page: number | null): Promise<any> {
         return this.moviesService.getAllMovies(search, page);
     }
+
+    @ApiResponse({status: 200, description: 'Movie data'})
+    @ApiBadRequestResponse({description: 'Error fetching movie'})
+    @ApiNotFoundResponse({description: 'Movie with ID ... not found'})
+    @Get(':id')
+    async getMovieById(@Param('id') id: number): Promise<any> {
+        return this.moviesService.getMovieById(id);
+    }
+
 
 }
