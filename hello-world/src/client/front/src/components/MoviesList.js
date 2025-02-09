@@ -1,9 +1,11 @@
 import React from "react";
+import Reservation from "./Reservations";
 
-const MoviesList = ({ movies }) => {
+const MoviesList = ({ movies, token }) => {
   if (!Array.isArray(movies)) {
     return <p className="text-center text-xl text-gray-700">Aucun film trouvé.</p>;
   }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
       {movies.map((movie) => (
@@ -20,6 +22,8 @@ const MoviesList = ({ movies }) => {
           </div>
           <h3 className="text-lg font-semibold text-gray-800">{movie.original_title}</h3>
           <p className="text-sm text-gray-600 mt-2">{movie.overview}</p>
+
+          {<Reservation token={token} movieId={movie.id} showForm={true} />}
         </div>
       ))}
     </div>

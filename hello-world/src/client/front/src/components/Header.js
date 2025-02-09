@@ -9,6 +9,9 @@ const Header = () => {
           <Link to="/" className="text-white text-lg font-semibold hover:underline">Liste des Films</Link>
         </li>
         <li>
+          <Link to="/reservations" className="text-white text-lg font-semibold hover:underline">Mes Réservations</Link>
+        </li>
+        <li>
           <Link to="/login" className="text-white text-lg font-semibold hover:underline">Connexion</Link>
         </li>
         <li>
