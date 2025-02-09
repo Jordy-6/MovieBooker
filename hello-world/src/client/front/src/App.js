@@ -10,6 +10,7 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [pageSize, setPageSize] = useState(1);
+  const [totalPages, setTotalPages] = useState(1); 
   const [token, setToken] = useState(localStorage.getItem("token") || "");
 
   useEffect(() => {
@@ -17,7 +18,10 @@ const App = () => {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then((res) => res.json())
-      .then((data) => setMovies(data.results));
+      .then((data) => {
+        setMovies(data.results);
+        setTotalPages(data.total_pages);
+      });
   }, [searchQuery, pageSize, token]);
 
   return (
@@ -29,7 +33,12 @@ const App = () => {
         <Route path="/" element={
           <>
             <h1 className="text-3xl font-bold text-center mb-6">Liste des Films</h1>
-            <MoviesSearchPagination setSearchQuery={setSearchQuery} setPageSize={setPageSize} />
+            <MoviesSearchPagination 
+              setSearchQuery={setSearchQuery} 
+              setPageSize={setPageSize} 
+              totalPages={totalPages} 
+              pageSize={pageSize}
+            />
             <MoviesList movies={movies} />
           </>
         } />
