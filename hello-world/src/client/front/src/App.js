@@ -15,7 +15,7 @@ const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
 
   useEffect(() => {
-    fetch(`http://localhost:3001/movies?search=${searchQuery}&page=${pageSize}`, {
+    fetch(`https://moviebooker-fmtr.onrender.com/movies?search=${searchQuery}&page=${pageSize}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then((res) => res.json())

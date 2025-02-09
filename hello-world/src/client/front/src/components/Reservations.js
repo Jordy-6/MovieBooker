@@ -7,7 +7,7 @@ const Reservation = ({ token, movieId, showForm = false }) => {
   // Récupérer les réservations de l'utilisateur
   useEffect(() => {
     if (token) {
-      fetch("http://localhost:3001/reservation", {
+      fetch("https://moviebooker-fmtr.onrender.com/reservation", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
@@ -16,7 +16,7 @@ const Reservation = ({ token, movieId, showForm = false }) => {
             // Récupérer les détails des films associés
             const reservationsWithMovies = await Promise.all(
               data.reservations.map(async (res) => {
-                const movieRes = await fetch(`http://localhost:3001/movies/${res.idMovie}`);
+                const movieRes = await fetch(`https://moviebooker-fmtr.onrender.com/movies/${res.idMovie}`);
                 const movieData = await movieRes.json();
                 return { ...res, movie: movieData };
               })
@@ -40,7 +40,7 @@ const Reservation = ({ token, movieId, showForm = false }) => {
       return;
     }
 
-    fetch("http://localhost:3001/reservation", {
+    fetch("https://moviebooker-fmtr.onrender.com/reservation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const Reservation = ({ token, movieId, showForm = false }) => {
 
   // Fonction pour supprimer une réservation
   const handleDeleteReservation = (id) => {
-    fetch(`http://localhost:3001/reservation/${id}`, {
+    fetch(`https://moviebooker-fmtr.onrender.com/reservation/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     })

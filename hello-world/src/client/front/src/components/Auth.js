@@ -7,7 +7,7 @@ const Auth = ({ setToken }) => {
   const navigate = useNavigate(); // Déclaration de navigate pour la redirection
 
   const handleLogin = async () => {
-    const response = await fetch("http://localhost:3001/auth/login", {
+    const response = await fetch("https://moviebooker-fmtr.onrender.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
